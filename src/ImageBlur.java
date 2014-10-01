@@ -13,6 +13,7 @@ public class ImageBlur {
 		// TODO Auto-generated method stub
 		File imageFile = new File("./sample-images/hyd_back.jpg");
 		int[][] pixelsMatrix = getPixelMatrix(imageFile);
+		int[][] modifiedPixelsMatrix = getAveragedPixelMatrix(pixelsMatrix);
 		
 	}
 
@@ -45,5 +46,21 @@ public class ImageBlur {
 		}
 
 		return pixels;
+	}
+
+	public static int[][] getAveragedPixelMatrix(int[][] inputMatrix) {
+		for (int i = 0; (i + 3) < inputMatrix.length; i = i + 3) {
+			for (int j = 0; (j + 3) < inputMatrix[0].length; j = j + 3) {
+				// Replace the center value with average of pixels
+				int sum = 0;
+				for (int k = i; k < i + 3; k++) {
+					for (int l = j; l < j + 3; l++) {
+						sum += inputMatrix[k][l];
+					}
+				}
+				inputMatrix[i + 1][j + 1] = sum / 9;
+			}
+		}
+		return inputMatrix;
 	}
 }
